@@ -1,60 +1,65 @@
-var rs = require("readline-sync");
+const rs = require("readline-sync");
 
-// Variables and Functions
-let operator = "";
-let num1 = null;
-let num2 = null;
-let ans = 0;
-const validOPerators = ["+", "-", "*", "/"];
+//Functions
+function isOpValid(op) {
+  const validOPerators = ["+", "-", "*", "/"];
 
-function getAnswer() {
-  switch (operator) {
-    case "+":
-      ans = num1 + num2;
-      break;
-    case "-":
-      ans = num1 - num2;
-      break;
-    case "*":
-      ans = num1 * num2;
-      break;
-    case "/":
-      ans = num1 / num2;
-      break;
+  if (!validOPerators.includes(op)) {
+    console.log("This is not a valid operation");
+    operator = rs.question("What operation would you like to perform? ");
+    isOpValid(operator);
   }
 }
 
-// Start
-let operation = rs.question("What operation would you like to perform? ");
-
-operator = operation;
-
-while (!validOPerators.includes(operator)) {
-  console.log("That is not a valid operation");
-  let ask = rs.question("What operation would you like to perform? ");
-  operator = ask;
+function num1Check(item) {
+  if (!Number(item)) {
+    console.log("This is not a number");
+    firstNumber = rs.question("Please enter the first number: ");
+    num1Check(firstNumber);
+  }
 }
+
+function num2Check(item) {
+  if (!Number(item)) {
+    console.log("This is not a number");
+    secondNumber = rs.question("Please enter the second number: ");
+    num2Check(secondNumber);
+  }
+}
+
+function getAnswer(op, val1, val2) {
+  let ans = null;
+
+  switch (op) {
+    case "+":
+      ans = val1 + val2;
+      console.log("The result is: " + ans);
+      break;
+    case "-":
+      ans = val1 - val2;
+      console.log("The result is: " + ans);
+      break;
+    case "*":
+      ans = val1 * val2;
+      console.log("The result is: " + ans);
+      break;
+    case "/":
+      ans = val1 / val2;
+      console.log("The result is: " + ans);
+      break;
+    default:
+      console.error("Invalid Expression");
+  }
+}
+
+//Start
+let operator = rs.question("What operation would you like to perform? ");
+isOpValid(operator);
 
 let firstNumber = rs.question("Please enter the first number: ");
-
-num1 = Number(firstNumber);
-
-while (!num1) {
-  console.log("This is not a number");
-  let ask = rs.question("Please enter the first number: ");
-  num1 = Number(ask);
-}
+num1Check(firstNumber);
 
 let secondNumber = rs.question("Please enter the second number: ");
+num2Check(secondNumber);
 
-num2 = Number(secondNumber);
-
-while (!num2) {
-  console.log("This is not a number");
-  let ask2 = rs.question("Please enter the second number: ");
-  num2 = Number(ask2);
-}
-
-getAnswer();
-
-console.log("The result is: " + ans);
+getAnswer(operator, firstNumber, secondNumber);
