@@ -9,59 +9,50 @@ function isOpValid() {
     console.log("This is not a valid operation");
     isOpValid();
   }
+
+  return operator;
 }
 
-function num1Check(item) {
-  firstNumber = rs.question("Please enter the first number: ");
-  if (!Number(firstNumber)) {
+function askForNum() {
+  num = rs.question("Please enter a number: ");
+  if (!Number(num)) {
     console.log("This is not a number");
-    num1Check(firstNumber);
+    askForNum();
   }
-}
 
-function num2Check(item) {
-  secondNumber = rs.question("Please enter the second number: ");
-  if (!Number(secondNumber)) {
-    console.log("This is not a number");
-    num2Check(secondNumber);
-  }
+  return num;
 }
 
 function getAnswer(op, val1, val2) {
   let ans = null;
+  let str = "The result is: ";
 
   switch (op) {
     case "+":
       ans = Number(val1) + Number(val2);
-      console.log("The result is: " + ans);
-      break;
+      return console.log(str + ans);
     case "-":
       ans = Number(val1) - Number(val2);
-      console.log("The result is: " + ans);
-      break;
+      return console.log(str + ans);
     case "*":
       ans = Number(val1) * Number(val2);
-      console.log("The result is: " + ans);
-      break;
+      return console.log(str + ans);
     case "/":
       ans = Number(val1) / Number(val2);
-      console.log("The result is: " + ans);
-      break;
+      return console.log(str + ans);
     default:
-      console.error("Invalid Expression");
+      console.log("Invalid expression");
   }
 }
 
 function calcStart() {
-  let operator = "";
-  let firstNumber = null;
-  let secondNumber = null;
+  let operator = isOpValid();
+  let num = "";
+  let firstNumber = askForNum();
+  let secondNumber = askForNum();
 
-  isOpValid();
-  num1Check();
-  num2Check();
+  getAnswer(operator, firstNumber, secondNumber);
 }
 
 //Start
 calcStart();
-getAnswer(operator, firstNumber, secondNumber);
